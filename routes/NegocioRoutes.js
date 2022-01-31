@@ -3,11 +3,15 @@ module.exports = app => {
 
     var router = require('express').Router();
 
-    router.post("/add", negocios.create);
+    router.post("/negocios/add", negocios.create);
 
-    router.get("/", negocios.findAll);
+    router.get("/negocios", negocios.findAll);
 
-    router.get("/:id", negocios.findById);
+    router.get("/negocios/:id", negocios.findById);
 
-    app.use('/api/negocios', router)
+    router.get("/categories", negocios.findAllCategories);
+
+    router.get("/subcategories", negocios.findAllSubCategories);
+
+    app.use('/api/', router)
 }
