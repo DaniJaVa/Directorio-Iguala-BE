@@ -1,0 +1,6 @@
+exports.get_all_negocios = "SELECT negocio.id, negocio.nombre, negocio.descripcion, negocio.direccion, negocio.telefono, negocio.id_categoria, categoria.nombre AS categoria, negocio.id_subcategoria, subcategoria.nombre AS subcategoria, negocio.latitud, negocio.longitud, negocio.contacto, negocio.imagen FROM negocio, categoria, subcategoria WHERE negocio.id_categoria = categoria.id_categoria AND negocio.id_subcategoria = subcategoria.id";
+exports.get_negocio_by_id = "SELECT negocio.id, negocio.nombre, negocio.descripcion, negocio.direccion, negocio.telefono, negocio.id_categoria, categoria.nombre AS categoria, negocio.id_subcategoria, subcategoria.nombre AS subcategoria, negocio.latitud, negocio.longitud, negocio.contacto, negocio.imagen  FROM negocio, categoria, subcategoria WHERE negocio.id = ? AND negocio.id_categoria = categoria.id_categoria AND negocio.id_subcategoria = subcategoria.id" 
+exports.get_all_subcategories = "SELECT * FROM subcategoria";
+exports.get_all_categories = "SELECT * FROM categoria";
+exports.get_all_negocios_by_categories = "SELECT negocio.nombre, negocio.id_categoria, categoria.nombre AS categoria FROM negocio, categoria WHERE negocio.id_categoria = categoria.id_categoria AND categoria.id_categoria = ?"
+exports.get_category_by_id = "SELECT * FROM categoria WHERE categoria.id_categoria = ?"

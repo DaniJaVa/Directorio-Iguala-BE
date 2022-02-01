@@ -1,6 +1,6 @@
 const res = require('express/lib/response');
 const sql = require('../config/conexion')
-
+const query_helpers = require ('../utils/query-helpers')
 const NegocioModel = function(Negocio) {
     this.nombre = negocio.nombre;
     this.descripcion = negocio.descripcion;
@@ -28,7 +28,7 @@ const NegocioModel = function(Negocio) {
   }
 
   NegocioModel.getAll = (result) => {
-      sql.query("SELECT negocio.id, negocio.nombre, negocio.descripcion, negocio.direccion, negocio.telefono, categoria.nombre AS categoria, subcategoria.nombre AS subcategoria, negocio.latitud, negocio.longitud, negocio.contacto FROM negocio, categoria, subcategoria WHERE negocio.id_categoria = categoria.id AND negocio.id_subcategoria = subcategoria.id", (error, res) => {
+      sql.query(query_helpers.get_all_negocios, (error, res) => {
           if(error){
               console.log(error)
               return error
@@ -38,7 +38,7 @@ const NegocioModel = function(Negocio) {
   }
 
   NegocioModel.getNegocioById = (id, result) => {
-    sql.query("SELECT * FROM negocio WHERE id = ?", id, (error, res) => {
+    sql.query(query_helpers.get_negocio_by_id, id, (error, res) => {
         if(error){
             console.log(error)
             return error
@@ -46,5 +46,45 @@ const NegocioModel = function(Negocio) {
         result(null, res)
     })
   }
+
+  NegocioModel.getAllCategories = (result) => {
+      sql.query(query_helpers.get_all_categories, (error, res) => {
+        if(error){
+            console.log(error)
+            return error
+        }
+        result(null, res)
+      })
+  }
+
+  NegocioModel.getCategoryById = (id,result) => {
+    sql.query(query_helpers.get_category_by_id, id, (error, res) => {
+        if(error){
+            console.log(error)
+            return error
+        }
+        result(null, res)
+    })
+  }
+
+  NegocioModel.getAllSubCategories = (result) => {
+    sql.query(query_helpers.get_all_subcategories, (error, res) => {
+      if(error){
+          console.log(error)
+          return error
+      }
+      result(null, res)
+    })
+}
+
+NegocioModel.getAllNegociosByCategory = (idCategory, result) => {
+    sql.query(query_helpers.get_all_negocios_by_categories, idCategory, (error, res) => {
+        if(error){
+            console.log(error)
+            return error
+        }
+        result(null, res)
+      })
+}
 
   module.exports = NegocioModel

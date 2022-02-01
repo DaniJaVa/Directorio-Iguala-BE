@@ -26,7 +26,47 @@ exports.findAll = ((req, res) => {
 })
 
 exports.findById = ((req, res) => {
-  Negocio.getNegocioById( req.params.id, (err, data) => {
+  Negocio.getNegocioById(req.params.id, (err, data) => {
+    if(!req.body) {
+      res.status(500).send({
+        message: err.message || "no sirve pues"
+      })
+    } else res.send(data)
+  })
+})
+
+exports.findAllCategories = ((req, res) => {
+  Negocio.getAllCategories((err, data) => {
+    if(err){
+      res.status(500).send({
+          message: err.message || "Error en la base"
+      })
+  } else res.send(data);
+  })
+})
+
+exports.findAllSubCategories = ((req, res) => {
+  Negocio.getAllSubCategories((err, data) => {
+    if(err){
+      res.status(500).send({
+        message: err.message || "Error en la base"
+      })
+    } else res.send(data)
+  })
+})
+
+exports.findAllNegociosByCategory = ((req, res) => {
+  Negocio.getAllNegociosByCategory(req.params.id, (err, data) => {
+    if(err){
+      res.status(500).send({
+        message: err.message || "Error en la base"
+      })
+    } else res.send(data)
+  })
+})
+
+exports.findCategoryById = ((req, res) => {
+  Negocio.getCategoryById(req.params.id, (err, data) => {
     if(!req.body) {
       res.status(500).send({
         message: err.message || "no sirve pues"
