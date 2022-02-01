@@ -13,5 +13,9 @@ module.exports = app => {
 
     router.get("/subcategories", negocios.findAllSubCategories);
 
-    app.use('/api/', router)
+    router.get("/categories/:id", negocios.findCategoryById);
+
+    router.get("/negociosbycat/:id", negocios.findAllNegociosByCategory);
+
+    app.use('/api/directorio-iguala', router)
 }

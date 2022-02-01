@@ -48,7 +48,7 @@ const NegocioModel = function(Negocio) {
   }
 
   NegocioModel.getAllCategories = (result) => {
-      sql.query("SELECT * FROM categoria", (error, res) => {
+      sql.query(query_helpers.get_all_categories, (error, res) => {
         if(error){
             console.log(error)
             return error
@@ -57,14 +57,34 @@ const NegocioModel = function(Negocio) {
       })
   }
 
+  NegocioModel.getCategoryById = (id,result) => {
+    sql.query(query_helpers.get_category_by_id, id, (error, res) => {
+        if(error){
+            console.log(error)
+            return error
+        }
+        result(null, res)
+    })
+  }
+
   NegocioModel.getAllSubCategories = (result) => {
-    sql.query("SELECT * FROM subcategoria", (error, res) => {
+    sql.query(query_helpers.get_all_subcategories, (error, res) => {
       if(error){
           console.log(error)
           return error
       }
       result(null, res)
     })
+}
+
+NegocioModel.getAllNegociosByCategory = (idCategory, result) => {
+    sql.query(query_helpers.get_all_negocios_by_categories, idCategory, (error, res) => {
+        if(error){
+            console.log(error)
+            return error
+        }
+        result(null, res)
+      })
 }
 
   module.exports = NegocioModel
