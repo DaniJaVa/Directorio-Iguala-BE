@@ -49,7 +49,27 @@ exports.findAllSubCategories = ((req, res) => {
   Negocio.getAllSubCategories((err, data) => {
     if(err){
       res.status(500).send({
-        message: err.message || "Erro en la base"
+        message: err.message || "Error en la base"
+      })
+    } else res.send(data)
+  })
+})
+
+exports.findAllNegociosByCategory = ((req, res) => {
+  Negocio.getAllNegociosByCategory(req.params.id, (err, data) => {
+    if(err){
+      res.status(500).send({
+        message: err.message || "Error en la base"
+      })
+    } else res.send(data)
+  })
+})
+
+exports.findCategoryById = ((req, res) => {
+  Negocio.getCategoryById(req.params.id, (err, data) => {
+    if(!req.body) {
+      res.status(500).send({
+        message: err.message || "no sirve pues"
       })
     } else res.send(data)
   })

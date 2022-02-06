@@ -13,5 +13,9 @@ module.exports = app => {
 
     router.get("/subcategories", negocios.findAllSubCategories);
 
+    router.get("/category/:id", negocios.findCategoryById);
+
+    router.get("/negocios/category/:id", negocios.findAllNegociosByCategory);
+
     app.use('/api/', router)
 }
